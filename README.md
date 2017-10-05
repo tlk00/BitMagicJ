@@ -1,4 +1,4 @@
 # BitMagicJ
-BitMagic Library for Java
+BitMagic Library for Scala/Java
 
 Work in progress...
