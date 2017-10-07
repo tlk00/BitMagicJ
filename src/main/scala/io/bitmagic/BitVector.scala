@@ -29,6 +29,8 @@ object BitVector extends BVector0 {
 
   def main(args: Array[String]): Unit = {
     var bv1 = BitVector(1)
+    println(bv1.version)
+    println(bv1.copyright)
     bv1 = null
     System.runFinalization()
     System.gc()
@@ -46,6 +48,8 @@ final class BitVector(strategy: Strategy, size: Long, bits: Long*) extends BVect
 
   bits.foreach(set0(_bv, _, true))
 
+  def version: String = version0
+  def copyright: String = copyright0
 
   override protected def finalize(): Unit = {
     println(s"Finalizing ${_bv}")
