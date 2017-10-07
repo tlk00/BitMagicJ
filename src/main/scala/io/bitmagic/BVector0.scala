@@ -2,13 +2,16 @@ package io.bitmagic
 
 class BVector0 {
 
-  @native def init0(ptr: Long)
-  @native def create0(strategy: Int, size: Long): Long
-  @native def clone0(ptr: Long): Long
-  @native def dispose0(ptr: Long)
+  @native protected def init0(ptr: Long)
+  @native protected def create0(strategy: Int, size: Long): Long
+  @native protected def clone0(ptr: Long): Long
+  @native protected def dispose0(ptr: Long)
 
-  @native def set0(ptr: Long, idx: Long, bit: Boolean)
-  @native def get0(ptr: Long, idx: Long): Boolean
+  @native protected def version0: String
+  @native protected def copyright0: String
+
+  @native protected def set0(ptr: Long, idx: Long, bit: Boolean)
+  @native protected def get0(ptr: Long, idx: Long): Boolean
 
 //  @native def equals0(ptr: Long)
 //  @native def compare0(ptr: Long)
