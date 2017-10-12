@@ -1,4 +1,7 @@
-package io.bitmagic;
+package io.bitmagic.java;
+
+import io.bitmagic.AbstractBVector;
+import io.bitmagic.Strategy;
 
 public final class BitVector extends AbstractBVector {
 
@@ -10,4 +13,6 @@ public final class BitVector extends AbstractBVector {
     super(Strategy.BM_BIT, MAX_BITS, bits);
   }
 
+  public static String getVersion() { return version0(); }
+  public static String getCopyright() { return copyright0(); }
 }

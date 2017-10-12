@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
-abstract class AbstractBVector extends BVector0 {
+public abstract class AbstractBVector extends BVector0 {
   private static String LIB_NAME = "bmjni";
 
   static {
