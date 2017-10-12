@@ -12,9 +12,9 @@ lazy val bmjava = (project in file("bmjava"))
   .settings(
     commonSettings,
     version := "0.0.1",
-    libraryDependencies ++= Seq(junitLib, scalaTestLib)
+    libraryDependencies ++= Seq(junitLib, scalaTestLib),
     //logLevel := Level.Debug,
-    //unmanagedResourceDirectories in Compile += { println(baseDirectory.value / ".." / "native"); baseDirectory.value / ".." / "native" }
+    unmanagedResourceDirectories in Compile += baseDirectory.value / ".." /  "native"
   )
 
 lazy val bmscala = (project in file("bmscala"))
@@ -30,4 +30,3 @@ lazy val bmcore = (project in file("."))
 
   )
 
-//unmanagedResourceDirectories in Compile += baseDirectory.value / "native"
