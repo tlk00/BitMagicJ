@@ -1,19 +1,32 @@
 lazy val commonSettings = Seq(
   organization := "io.bitmagic",
-  version := "0.0.1",
-  // set the Scala version used for the project
   scalaVersion := "2.12.3"
 )
 
-libraryDependencies ++= Seq(
-  "com.typesafe" % "config" % "1.3.1"
-)
+lazy val configLib = "com.typesafe" % "config" % "1.3.1"
+lazy val junitLib = "junit" % "junit" % "4.12" % "test"
+lazy val scalaTestLib = "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
-
-lazy val root = (project in file("."))
+lazy val bmjava = (project in file("bmjava"))
+  .dependsOn(bmcore)
   .settings(
     commonSettings,
-    // set the name of the project
-    name := "BitMagicJ"
+    version := "0.0.1",
+    libraryDependencies ++= Seq(junitLib, scalaTestLib),
+    //logLevel := Level.Debug,
+    unmanagedResourceDirectories in Compile += baseDirectory.value / ".." /  "native"
+  )
+
+lazy val bmscala = (project in file("bmscala"))
+  .dependsOn(bmcore)
+  .settings(
+    commonSettings,
+    version := "0.0.1"
+  )
+
+lazy val bmcore = (project in file("."))
+  .settings(
+    commonSettings
+
   )
 
