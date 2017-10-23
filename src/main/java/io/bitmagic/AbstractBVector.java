@@ -13,14 +13,15 @@ public abstract class AbstractBVector extends BVector0 {
 
   static {
     String osLibName = System.mapLibraryName(LIB_NAME);
-    Path tmpDir = Paths.get(System.getProperty("java.io.tmpdir"));
-    String bmTmp = UUID.randomUUID().toString();
-    Path libDirPath = tmpDir.resolve(bmTmp);
-    Path libPath = libDirPath.resolve(osLibName);
-    try(InputStream libIs = AbstractBVector.class.getResourceAsStream("/" + osLibName);) {
-      Files.createDirectory(libDirPath);
-      Files.copy(libIs, libPath, StandardCopyOption.REPLACE_EXISTING);
-      Runtime.getRuntime().load(libPath.toString());
+//    Path tmpDir = Paths.get(System.getProperty("java.io.tmpdir"));
+//    String bmTmp = UUID.randomUUID().toString();
+//    Path libDirPath = tmpDir.resolve(bmTmp);
+//    Path libPath = libDirPath.resolve(osLibName);
+    try(InputStream libIs = AbstractBVector.class.getResourceAsStream("/" + osLibName)) {
+      Path libTmp = Files.createTempFile(null, null);
+//      Files.createDirectory(libDirPath);
+      Files.copy(libIs, libTmp, StandardCopyOption.REPLACE_EXISTING);
+      System.load(libTmp.toString());
       init0(0);
     }
     catch (IOException e) {
@@ -28,7 +29,7 @@ public abstract class AbstractBVector extends BVector0 {
     }
   }
 
-  private long _bv = 0; // finalization runs in case of any exception
+  protected long _bv = 0; // finalization runs in case of any exception
 
   public AbstractBVector(Strategy stg, long size, long... bits) {
     _bv = create0(stg.ordinal(), size);
@@ -36,6 +37,10 @@ public abstract class AbstractBVector extends BVector0 {
     for(long b: bits) {
       set0(_bv, b, true);
     }
+  }
+
+  public AbstractBVector(long bv) {
+    _bv = bv;
   }
 
   public static String getVersion() { return version0(); }
