@@ -17,4 +17,10 @@ public class BitVectorStat {
   public long getGapBlocks() { return _gapBlocks; }
   public long getMaxSerializeMem() { return _maxSerializeMem; }
   public long getMemoryUsed() { return _memoryUsed; }
+
+  @Override
+  public String toString() {
+    return "Bit blocks: " + _bitBlocks + ", gap blocks: " + _gapBlocks + ", max serialize mem: " + _maxSerializeMem
+        + ", memory used: " + _memoryUsed;
+  }
 }
