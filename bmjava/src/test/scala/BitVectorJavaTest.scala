@@ -38,4 +38,12 @@ class BitVectorJavaTest extends FunSuite {
     stat = bv.optimize(OptMode.FREE_EMPTY_BLOCKS)
     println(stat)
   }
+
+  test("Find bits") {
+    val bv = new BitVector(Strategy.BM_BIT, 1,3,5, 560, 2346, 5876, 8458, 1234567, 2345678)
+    val idx = bv.findFirst()
+    assert(idx == 1)
+    val idx2 = bv.findFirst(2345679)
+    assert(idx2 == -1)
+  }
 }

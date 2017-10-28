@@ -212,16 +212,16 @@ public final class BitVector extends AbstractBVector {
    * @param start start position.
    * @return bit position or -1 if not found.
    */
-  public long indexOf(long start) {
+  public long findFirst(long start) {
     return indexOf0(getInternal(), start);
   }
 
   /**
-   * Looks for the fisrt non-zero bit from the beginning of the vector.
+   * Looks for the first non-zero bit from the beginning of the vector.
    *
    * @return bit position or -1 if not found.
    */
-  public long indexOf() {
+  public long findFirst() {
     return indexOf0(getInternal(), 0);
   }
 
