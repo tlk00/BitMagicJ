@@ -1,4 +1,4 @@
-package io.bitmagic;
+package io.bitmagic.core;
 
 public class BitVectorStat {
   private long _bitBlocks;

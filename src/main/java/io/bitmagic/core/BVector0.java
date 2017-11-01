@@ -1,4 +1,4 @@
-package io.bitmagic;
+package io.bitmagic.core;
 
 abstract class BVector0 {
 

@@ -1,7 +1,10 @@
 
-import io.bitmagic.{OptMode, Strategy}
+import io.bitmagic.core.Strategy
+import io.bitmagic.core.{OptMode, Strategy}
 import io.bitmagic.java.BitVector
 import org.scalatest.FunSuite
+
+import scala.collection.JavaConverters._
 
 class BitVectorJavaTest extends FunSuite {
 
@@ -32,10 +35,20 @@ class BitVectorJavaTest extends FunSuite {
   test("Optimize") {
     val bv = new BitVector(Strategy.BM_BIT, 1,3,5, 560, 2346, 5876, 8458, 1234567, 2345678)
 
-    var stat = bv.calcStat()
     println("Bit count: " + bv.count())
+    var stat = bv.calcStat()
     println(stat)
     stat = bv.optimize(OptMode.FREE_EMPTY_BLOCKS)
     println(stat)
+  }
+
+  test("Iterator") {
+    val bv = new BitVector(Strategy.BM_BIT, 1,3,5, 560, 2346, 5876, 8458, 1234567, 2345678)
+
+    for(i <- bv.iterator().asScala) {
+      print(i)
+      print(" ")
+    }
+    println()
   }
 }
