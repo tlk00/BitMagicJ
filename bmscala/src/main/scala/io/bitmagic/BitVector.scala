@@ -1,27 +1,14 @@
 package io.bitmagic
 
-import java.nio.file.{Files, Paths, StandardCopyOption}
-import java.util.UUID
+import io.bitmagic.core.{AbstractBVector, Strategy}
 
 import scala.io.StdIn
 
 object BitVector {
-//  final val LibName = "bmjni"
-//
-//  private def loadjni(): Unit = {
-//    val osLibName = System.mapLibraryName(LibName)
-//    val libIs = this.getClass.getResourceAsStream("/" + osLibName)
-//    val tmpDir = Paths.get(System.getProperty("java.io.tmpdir"))
-//    val bmTmp = UUID.randomUUID().toString
-//    val libDirPath = tmpDir.resolve(bmTmp)
-//    Files.createDirectory(libDirPath)
-//    val libPath = libDirPath.resolve(osLibName)
-//    Files.copy(libIs, libPath, StandardCopyOption.REPLACE_EXISTING)
-//    Runtime.getRuntime.load(libPath.toString)
-//  }
+  final val MAX_BITS = 0xFFFFFFFL
 
-  def apply(strategy: Strategy, bits: Long*) = new BitVector(strategy, BVector0.MAX_BITS, bits:_*)
-  def apply(bits: Long*) = new BitVector(Strategy.BM_BIT, BVector0.MAX_BITS, bits:_*)
+  def apply(strategy: Strategy, bits: Long*) = new BitVector(strategy, MAX_BITS, bits:_*)
+  def apply(bits: Long*) = new BitVector(Strategy.BM_BIT, MAX_BITS, bits:_*)
 
 //  loadjni()
 //  init0(0)
