@@ -39,4 +39,9 @@ abstract class BVector0 {
   public native static void sub0(long dst, long src);
   public native static void xor0(long dst, long src);
 
+  public native static void orArr0(long dst, int[] arr);
+
+  public native static long fromArray0(int strategy, byte[] buf);
+  public native static byte[] toArray0(long ptr);
+
 }

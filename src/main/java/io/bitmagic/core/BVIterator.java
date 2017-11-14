@@ -2,6 +2,9 @@ package io.bitmagic.core;
 
 import java.util.Iterator;
 
+/**
+ * Iterates through non-zero bits. Non-reentrant, non-reuseable.
+ */
 public final class BVIterator extends BVIterator0 implements Iterator<Long> {
   private long _bvi = 0;
   private boolean _nonEmpty;
