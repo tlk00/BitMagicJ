@@ -1,8 +1,10 @@
 package io.bitmagic.java;
 
-import io.bitmagic.*;
+import io.bitmagic.core.*;
 
-public final class BitVector extends AbstractBVector {
+import java.util.Iterator;
+
+public final class BitVector extends AbstractBVector implements Iterable<Long> {
   public static long MAX_BITS = 0xFFFFFFFL;
 
   /**
@@ -292,5 +294,14 @@ public final class BitVector extends AbstractBVector {
    */
   public void xor(BitVector bv) {
     xor0(getInternal(), bv.getInternal());
+  }
+
+  /**
+   * Returns iterator over non-zero bits.
+   * The iterator in non-reentrant, use from a single thread only.
+   */
+  @Override
+  public Iterator<Long> iterator() {
+    return new BVIterator(getInternal());
   }
 }

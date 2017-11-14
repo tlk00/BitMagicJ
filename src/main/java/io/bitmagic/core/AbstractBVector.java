@@ -1,12 +1,10 @@
-package io.bitmagic;
+package io.bitmagic.core;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.UUID;
 
 public abstract class AbstractBVector extends BVector0 {
   private static String LIB_NAME = "bmjni";
