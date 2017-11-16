@@ -47,6 +47,14 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   }
 
   /**
+   * Creates a bit vector from a serialized byte array.
+   * @param buf an array of bits to set.
+   */
+  public BitVector(byte[] buf) {
+    super(buf);
+  }
+
+  /**
    * Internal use only
    * @param bv pointer to the native structure.
    */
@@ -303,5 +311,16 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   @Override
   public Iterator<Long> iterator() {
     return new BVIterator(getInternal());
+  }
+
+  public byte[] toArray() {
+    BitVectorStat stat = calcStat();
+    // currently max number of bits is 2^32, will fit into
+    // the array of _bytes_, including overhead
+    byte[] arr = new byte[(int)stat.getMaxSerializeMem()];
+    int actual = (int)serialize0(getInternal(), arr);
+    byte[] result = new byte[actual];
+    System.arraycopy(arr, 0, result, 0, actual);
+    return result;
   }
 }
