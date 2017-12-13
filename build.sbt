@@ -1,11 +1,11 @@
 lazy val commonSettings = Seq(
   organization := "io.bitmagic",
-  scalaVersion := "2.12.3"
+  scalaVersion := "2.12.4"
 )
 
-lazy val configLib = "com.typesafe" % "config" % "1.3.1"
+lazy val configLib = "com.typesafe" % "config" % "1.3.2"
 lazy val junitLib = "junit" % "junit" % "4.12" % "test"
-lazy val scalaTestLib = "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+lazy val scalaTestLib = "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
 lazy val bmjava = (project in file("bmjava"))
   .dependsOn(bmcore)

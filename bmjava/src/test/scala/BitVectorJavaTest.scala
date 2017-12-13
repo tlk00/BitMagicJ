@@ -51,4 +51,23 @@ class BitVectorJavaTest extends FunSuite {
     }
     println()
   }
+
+  test("Serialization") {
+    val bv = new BitVector()
+    var bit = true
+    val limit: Long = 100000000
+//    val limit: Long = Integer.MAX_VALUE.asInstanceOf[Long] << 1
+    var idx = 0L
+    while(idx < limit) {
+      bit = !bit
+      bv.set(idx, bit)
+      idx += 1
+    }
+    println("Bit count1: " + bv.count)
+    val serialized = bv.toArray
+    println("Serialized length:" + serialized.length)
+    val bv2 = new BitVector(serialized)
+    println("Bit count2: " + bv2.count)
+    assert(bv.count == bv2.count)
+  }
 }

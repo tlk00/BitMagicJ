@@ -5,7 +5,7 @@ import io.bitmagic.core.*;
 import java.util.Iterator;
 
 public final class BitVector extends AbstractBVector implements Iterable<Long> {
-  public static long MAX_BITS = 0xFFFFFFFL;
+  public static long MAX_BITS = 0xFFFFFFFFL;
 
   /**
    * BitMagic version
@@ -89,7 +89,7 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   }
 
   /**
-   * Sets bit at the requested position.
+   * Sets a bit at the specified position.
    *
    * @param idx bit position.
    * @param v bit value.
@@ -313,6 +313,12 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
     return new BVIterator(getInternal());
   }
 
+  /**
+   * Serializes the bitvector into a byte array
+   * Currently there is a double-buffering involved since the exact size of the resulting array is not known
+   * before it's processed.
+   * @return serialized array
+   */
   public byte[] toArray() {
     BitVectorStat stat = calcStat();
     // currently max number of bits is 2^32, will fit into
