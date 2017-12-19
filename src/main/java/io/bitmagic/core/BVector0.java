@@ -39,4 +39,10 @@ abstract class BVector0 {
   public native static void sub0(long dst, long src);
   public native static void xor0(long dst, long src);
 
+  public native static void orArr0(long dst, int[] arr);
+
+  public native static void deserialize0(long ptr, byte[] buf);
+  // Returns actual data size
+  public native static long serialize0(long ptr, byte[] buf);
+
 }

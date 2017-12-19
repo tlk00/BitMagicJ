@@ -5,7 +5,7 @@ import io.bitmagic.core.*;
 import java.util.Iterator;
 
 public final class BitVector extends AbstractBVector implements Iterable<Long> {
-  public static long MAX_BITS = 0xFFFFFFFL;
+  public static long MAX_BITS = 0xFFFFFFFFL;
 
   /**
    * BitMagic version
@@ -47,6 +47,14 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   }
 
   /**
+   * Creates a bit vector from a serialized byte array.
+   * @param buf an array of bits to set.
+   */
+  public BitVector(byte[] buf) {
+    super(buf);
+  }
+
+  /**
    * Internal use only
    * @param bv pointer to the native structure.
    */
@@ -81,7 +89,7 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   }
 
   /**
-   * Sets bit at the requested position.
+   * Sets a bit at the specified position.
    *
    * @param idx bit position.
    * @param v bit value.
@@ -214,16 +222,16 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
    * @param start start position.
    * @return bit position or -1 if not found.
    */
-  public long indexOf(long start) {
+  public long findFirst(long start) {
     return indexOf0(getInternal(), start);
   }
 
   /**
-   * Looks for the fisrt non-zero bit from the beginning of the vector.
+   * Looks for the first non-zero bit from the beginning of the vector.
    *
    * @return bit position or -1 if not found.
    */
-  public long indexOf() {
+  public long findFirst() {
     return indexOf0(getInternal(), 0);
   }
 
@@ -303,5 +311,22 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   @Override
   public Iterator<Long> iterator() {
     return new BVIterator(getInternal());
+  }
+
+  /**
+   * Serializes the bitvector into a byte array
+   * Currently there is a double-buffering involved since the exact size of the resulting array is not known
+   * before it's processed.
+   * @return serialized array
+   */
+  public byte[] toArray() {
+    BitVectorStat stat = calcStat();
+    // currently max number of bits is 2^32, will fit into
+    // the array of _bytes_, including overhead
+    byte[] arr = new byte[(int)stat.getMaxSerializeMem()];
+    int actual = (int)serialize0(getInternal(), arr);
+    byte[] result = new byte[actual];
+    System.arraycopy(arr, 0, result, 0, actual);
+    return result;
   }
 }

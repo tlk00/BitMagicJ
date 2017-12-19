@@ -34,6 +34,11 @@ public abstract class AbstractBVector extends BVector0 {
     }
   }
 
+  public AbstractBVector(byte[] buf) {
+    _bv = create0(0, buf.length);
+    deserialize0(_bv, buf);
+  }
+
   public AbstractBVector(long bv) {
     _bv = bv;
   }
