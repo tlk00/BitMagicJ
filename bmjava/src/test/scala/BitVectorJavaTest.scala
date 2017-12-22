@@ -69,5 +69,7 @@ class BitVectorJavaTest extends FunSuite {
     val bv2 = new BitVector(serialized)
     println("Bit count2: " + bv2.count)
     assert(bv.count == bv2.count)
+    System.gc()
+    Thread.sleep(10000)
   }
 }
