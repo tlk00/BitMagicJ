@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public abstract class AbstractBVector extends BVector0 {
+public abstract class AbstractBVector extends BVector0 implements AutoCloseable {
   private static String LIB_NAME = "bmjni";
 
   static {
@@ -46,8 +46,18 @@ public abstract class AbstractBVector extends BVector0 {
   public static String getVersion() { return version0(); }
   public static String getCopyright() { return copyright0(); }
 
+
+  @Override
+  public void close() {
+    if (_bv != 0)
+      synchronized (this) {
+        dispose0(_bv);
+        _bv = 0;
+      }
+  }
+
   @Override
   protected void finalize() {
-    if (_bv != 0) dispose0(_bv);
+    close();
   }
 }
