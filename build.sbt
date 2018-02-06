@@ -14,7 +14,7 @@ lazy val bmjava = (project in file("bmjava"))
     version := "0.0.1",
     libraryDependencies ++= Seq(junitLib, scalaTestLib),
     //logLevel := Level.Debug,
-    unmanagedResourceDirectories in Compile += baseDirectory.value / ".." /  "native",
+    unmanagedResourceDirectories in Compile += baseDirectory.value / ".." /  "native"
 //    unmanagedResourceDirectories in Test += baseDirectory.value / ".." /  "native"
 //    javaOptions += "-Xcheck:jni"
   )

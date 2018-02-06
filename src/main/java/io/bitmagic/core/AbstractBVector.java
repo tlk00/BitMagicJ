@@ -8,6 +8,8 @@ import java.nio.file.StandardCopyOption;
 
 public abstract class AbstractBVector extends BVector0 implements AutoCloseable {
   private static String LIB_NAME = "bmjni";
+  public static long MAX_BITS = 0xFFFFFFFFL;
+
 
   static {
     String osLibName = System.mapLibraryName(LIB_NAME);
@@ -35,7 +37,7 @@ public abstract class AbstractBVector extends BVector0 implements AutoCloseable 
   }
 
   public AbstractBVector(byte[] buf) {
-    _bv = create0(0, buf.length);
+    _bv = create0(0, MAX_BITS);
     deserialize0(_bv, buf);
   }
 
