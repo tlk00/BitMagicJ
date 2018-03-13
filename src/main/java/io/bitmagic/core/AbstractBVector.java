@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 public abstract class AbstractBVector extends BVector0 implements AutoCloseable {
-  private static String CPUID_LIB_NAME = "bmcpuid";
+  private static String CPUID_LIB_NAME = "bmcpuidj";
   private static String LIB_NAME = "bmjni";
   public static long MAX_BITS = 0xFFFFFFFFL;
 
@@ -26,7 +26,7 @@ public abstract class AbstractBVector extends BVector0 implements AutoCloseable 
       throw new RuntimeException("CPUID library initialization problem.", e);
     }
     System.out.println("Current library name: " + libName);
-    String osLibName = System.mapLibraryName(LIB_NAME);
+    String osLibName = System.mapLibraryName(libName);
     try(InputStream libIs = AbstractBVector.class.getResourceAsStream("/" + osLibName)) {
       Path libTmp = Files.createTempFile(null, null);
       Files.copy(libIs, libTmp, StandardCopyOption.REPLACE_EXISTING);
