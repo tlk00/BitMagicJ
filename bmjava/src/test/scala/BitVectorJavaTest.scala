@@ -2,11 +2,21 @@
 import io.bitmagic.core.Strategy
 import io.bitmagic.core.{OptMode, Strategy}
 import io.bitmagic.java.BitVector
-import org.scalatest.FunSuite
+import org.scalactic.source.Position
+import org.scalatest.{BeforeAndAfter, BeforeAndAfterAll, FunSuite}
 
 import scala.collection.JavaConverters._
 
-class BitVectorJavaTest extends FunSuite {
+class BitVectorJavaTest extends FunSuite with BeforeAndAfterAll {
+
+  override def beforeAll(): Unit = {
+//    import java.io.BufferedReader
+//    import java.io.InputStreamReader
+//    val br = new BufferedReader(new InputStreamReader(System.in))
+//    System.out.print("Enter:")
+//    val s = br.readLine
+  }
+
 
   test("BitMagic version") {
     val version = BitVector.getVersion
@@ -53,7 +63,7 @@ class BitVectorJavaTest extends FunSuite {
   }
 
   test("Serialization") {
-    val bv = new BitVector()
+    var bv = new BitVector()
     var bit = true
     val limit: Long = 100000000
 //    val limit: Long = Integer.MAX_VALUE.asInstanceOf[Long] << 1
@@ -69,7 +79,26 @@ class BitVectorJavaTest extends FunSuite {
     val bv2 = new BitVector(serialized)
     println("Bit count2: " + bv2.count)
     assert(bv.count == bv2.count)
-    System.gc()
-    Thread.sleep(10000)
   }
+
+//  test("Jni memory allocation") {
+//    println("Starting jni memory allocation test")
+//    var bv = new BitVector()
+//    var bit = true
+////    val limit: Long = 100000000
+//    val limit: Long = 65537
+//    var idx = 0L
+//    while(idx < limit) {
+//      if (idx > 65535)
+//        println("Bit " + idx)
+//      bit = !bit
+//      bv.set(idx, bit)
+//      idx += 1
+//    }
+//    println("Bit count1: " + bv.count)
+//    bv = null
+//    System.runFinalization()
+//    System.gc()
+//    Thread.sleep(10000)
+//  }
 }

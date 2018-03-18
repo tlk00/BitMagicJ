@@ -5,7 +5,7 @@ import io.bitmagic.core.{AbstractBVector, Strategy}
 import scala.io.StdIn
 
 object BitVector {
-  final val MAX_BITS = 0xFFFFFFFL
+  final val MAX_BITS = AbstractBVector.MAX_BITS
 
   def apply(strategy: Strategy, bits: Long*) = new BitVector(strategy, MAX_BITS, bits:_*)
   def apply(bits: Long*) = new BitVector(Strategy.BM_BIT, MAX_BITS, bits:_*)

@@ -5,7 +5,7 @@ import io.bitmagic.core.*;
 import java.util.Iterator;
 
 public final class BitVector extends AbstractBVector implements Iterable<Long> {
-  public static long MAX_BITS = 0xFFFFFFFFL;
+//  public static long MAX_BITS = 0xFFFFFFFFL;
 
   /**
    * BitMagic version

@@ -16,6 +16,7 @@ lazy val bmjava = (project in file("bmjava"))
     //logLevel := Level.Debug,
     unmanagedResourceDirectories in Compile += baseDirectory.value / ".." /  "native"
 //    unmanagedResourceDirectories in Test += baseDirectory.value / ".." /  "native"
+//    javaOptions += "-Xcheck:jni"
   )
 
 lazy val bmscala = (project in file("bmscala"))

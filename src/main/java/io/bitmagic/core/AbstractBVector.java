@@ -6,11 +6,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public abstract class AbstractBVector extends BVector0 {
+public abstract class AbstractBVector extends BVector0 implements AutoCloseable {
+  private static String CPUID_LIB_NAME = "bmcpuidj";
   private static String LIB_NAME = "bmjni";
+  public static long MAX_BITS = 0xFFFFFFFFL;
+
 
   static {
-    String osLibName = System.mapLibraryName(LIB_NAME);
+    // Get the library name based on the current instruction set
+    String osCpuidLibName = System.mapLibraryName(CPUID_LIB_NAME);
+    String libName = LIB_NAME;
+    try(InputStream libIs = AbstractBVector.class.getResourceAsStream("/" + osCpuidLibName)) {
+      Path libTmp = Files.createTempFile(null, null);
+      Files.copy(libIs, libTmp, StandardCopyOption.REPLACE_EXISTING);
+      System.load(libTmp.toString());
+      libName = SimdUtil0.getLibName0();
+    }
+    catch (IOException e) {
+      throw new RuntimeException("CPUID library initialization problem.", e);
+    }
+    System.out.println("Current library name: " + libName);
+    String osLibName = System.mapLibraryName(libName);
     try(InputStream libIs = AbstractBVector.class.getResourceAsStream("/" + osLibName)) {
       Path libTmp = Files.createTempFile(null, null);
       Files.copy(libIs, libTmp, StandardCopyOption.REPLACE_EXISTING);
@@ -35,7 +51,7 @@ public abstract class AbstractBVector extends BVector0 {
   }
 
   public AbstractBVector(byte[] buf) {
-    _bv = create0(0, buf.length);
+    _bv = create0(0, MAX_BITS);
     deserialize0(_bv, buf);
   }
 
@@ -46,8 +62,18 @@ public abstract class AbstractBVector extends BVector0 {
   public static String getVersion() { return version0(); }
   public static String getCopyright() { return copyright0(); }
 
+
+  @Override
+  public void close() {
+    if (_bv != 0)
+      synchronized (this) {
+        dispose0(_bv);
+        _bv = 0;
+      }
+  }
+
   @Override
   protected void finalize() {
-    if (_bv != 0) dispose0(_bv);
+    close();
   }
 }
