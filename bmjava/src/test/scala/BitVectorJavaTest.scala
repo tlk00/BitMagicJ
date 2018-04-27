@@ -42,6 +42,23 @@ class BitVectorJavaTest extends FunSuite with BeforeAndAfterAll {
     assert(bv.get(2))
   }
 
+  test("Increment") {
+    val bv = new BitVector(1, 3, 500000000)
+    assert(bv.inc(2) == 0)
+    assert(bv.inc(500000000) == 1)
+  }
+
+  test("Find first") {
+    val bv = new BitVector(39000, 67000000, 500000000)
+    assert(bv.findFirst() == 39000)
+  }
+
+  test("Find reverse") {
+    val bv = new BitVector(39000, 67000000, 500000000)
+    bv.set(500000000, false)
+    assert(bv.findReverse() == 67000000)
+  }
+
   test("Optimize") {
     val bv = new BitVector(Strategy.BM_BIT, 1,3,5, 560, 2346, 5876, 8458, 1234567, 2345678)
 
@@ -81,24 +98,4 @@ class BitVectorJavaTest extends FunSuite with BeforeAndAfterAll {
     assert(bv.count == bv2.count)
   }
 
-//  test("Jni memory allocation") {
-//    println("Starting jni memory allocation test")
-//    var bv = new BitVector()
-//    var bit = true
-////    val limit: Long = 100000000
-//    val limit: Long = 65537
-//    var idx = 0L
-//    while(idx < limit) {
-//      if (idx > 65535)
-//        println("Bit " + idx)
-//      bit = !bit
-//      bv.set(idx, bit)
-//      idx += 1
-//    }
-//    println("Bit count1: " + bv.count)
-//    bv = null
-//    System.runFinalization()
-//    System.gc()
-//    Thread.sleep(10000)
-//  }
 }
