@@ -34,7 +34,7 @@ class BitVectorJavaTest extends FunSuite with BeforeAndAfterAll {
     assert(bv.getSize == bSize2)
   }
 
-  test("Set and retrieval") {
+  test("Set and retrieve") {
     val bv = new BitVector(1,3,5)
     assert(bv.get(1))
     assert(!bv.get(2))
