@@ -14,6 +14,7 @@ abstract class BVector0 {
   public native static void setSize0(long ptr, long size);
 
   public native static void set0(long ptr, long idx, boolean bit);
+  public native static int inc0(long ptr, long idx);
   public native static boolean setConditional0(long ptr, long idx, boolean bit, boolean condition);
   public native static void flip0(long ptr, long idx);
   public native static void setAll0(long ptr);
@@ -26,7 +27,8 @@ abstract class BVector0 {
   public native static long count0(long ptr);
   public native static long countInRange0(long ptr, long left, long right);
   public native static boolean nonEmpty0(long ptr);
-  public native static long indexOf0(long ptr, long start);
+  public native static long findFirst0(long ptr, long start);
+  public native static long findReverse0(long ptr);
 
   public native static int compare0(long ptr1, long ptr2);
   public native static BitVectorStat optimize0(long ptr, int opt_mode);
@@ -39,7 +41,11 @@ abstract class BVector0 {
   public native static void sub0(long dst, long src);
   public native static void xor0(long dst, long src);
 
+  public native static void andArr0(long dst, int[] arr);
+  public native static void andArrSorted0(long dst, int[] arr);
   public native static void orArr0(long dst, int[] arr);
+  public native static void xorArr0(long dst, int[] arr);
+  public native static void subArr0(long dst, int[] arr);
 
   public native static void deserialize0(long ptr, byte[] buf);
   // Returns actual data size

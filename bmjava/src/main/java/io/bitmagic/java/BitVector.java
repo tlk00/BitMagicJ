@@ -3,6 +3,7 @@ package io.bitmagic.java;
 import io.bitmagic.core.*;
 
 import java.util.Iterator;
+import java.util.function.BooleanSupplier;
 
 public final class BitVector extends AbstractBVector implements Iterable<Long> {
 //  public static long MAX_BITS = 0xFFFFFFFFL;
@@ -99,6 +100,15 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   }
 
   /**
+   * Increments the bit at the specified position and returns the carry-over value.
+   *
+   * @return carry-over value.
+   */
+  public int inc(long idx) {
+    return inc0(getInternal(), idx);
+  }
+
+  /**
    * Sets bit only if the previous value at this position equals <code>cond</code>
    *
    * @param idx bit position.
@@ -107,6 +117,17 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
    */
   public void setIf(long idx, boolean v, boolean cond) {
     setConditional0(getInternal(), idx, v, cond);
+  }
+
+  /**
+   * Sets bit only if the previous value at this position equals the resulf of <code>bs</code>
+   *
+   * @param idx bit position.
+   * @param v bit value.
+   * @param bs returns expected previous value.
+   */
+  public void setIf(long idx, boolean v, BooleanSupplier bs) {
+    setConditional0(getInternal(), idx, v, bs.getAsBoolean());
   }
 
   /**
@@ -223,7 +244,7 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
    * @return bit position or -1 if not found.
    */
   public long findFirst(long start) {
-    return indexOf0(getInternal(), start);
+    return findFirst0(getInternal(), start);
   }
 
   /**
@@ -232,7 +253,16 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
    * @return bit position or -1 if not found.
    */
   public long findFirst() {
-    return indexOf0(getInternal(), 0);
+    return findFirst0(getInternal(), 0);
+  }
+
+  /**
+   * Looks for the first non-zero bit from the end of the vector.
+   *
+   * @return bit position or -1 if not found.
+   */
+  public long findReverse() {
+    return findReverse0(getInternal());
   }
 
   /**
@@ -303,6 +333,41 @@ public final class BitVector extends AbstractBVector implements Iterable<Long> {
   public void xor(BitVector bv) {
     xor0(getInternal(), bv.getInternal());
   }
+
+  /**
+   * Performs AND operation with the positions array.
+   *
+   * @param arr positions array
+   */
+  public void and(int[] arr) { andArr0(getInternal(), arr); }
+
+  /**
+   * Performs AND operation with the sorted position array.
+   *
+   * @param arr array of positions
+   */
+  public void andSorted(int[] arr) { andArrSorted0(getInternal(), arr); }
+
+  /**
+   * Performs OR operation with the positions array.
+   *
+   * @param arr positions array
+   */
+  public void or(int[] arr) { orArr0(getInternal(), arr); }
+
+  /**
+   * Performs XOR operation with the positions array.
+   *
+   * @param arr positions array
+   */
+  public void xor(int[] arr) { xorArr0(getInternal(), arr); }
+
+  /**
+   * Performs SUB operation with the positions array.
+   *
+   * @param arr positions array
+   */
+  public void sub(int[] arr) { subArr0(getInternal(), arr); }
 
   /**
    * Returns iterator over non-zero bits.
